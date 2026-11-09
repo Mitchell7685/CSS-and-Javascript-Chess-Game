@@ -690,7 +690,7 @@ let main = {
           $('#turn').removeClass('turnhighlight');
         }, 1500);
 
-      } else if (main.variables.turn = 'b'){
+      } else if (main.variables.turn == 'b'){
         main.variables.turn = 'w';
 
         // toggle highlighted coordinates
@@ -746,19 +746,21 @@ $(document).ready(function() {
       main.variables.selectedpiece = e.target.id;
       main.methods.moveoptions($(this).attr('chess'));
 
-    } else if (main.variables.selectedpiece !='' && target.name == 'null') { // move selected piece piece
+    } else if (main.variables.selectedpiece !='' && target.name == 'null' &&
+    main.variables.highlighted.indexOf(target.id) != (-1)) { // move selected piece
 
       if (selectedpiece.name == 'w_king' || selectedpiece.name == 'b_king'){
         
-        let t0 = (selectedpiece.name = 'w_king');
-        let t1 = (selectedpiece.name = 'b_king');
-        let t2 = (main.variables.pieces[selectedpiece.name].moved == false);
-        let t3 = (main.variables.pieces['b_rook2'].moved == false);
-        let t4 = (main.variables.pieces['w_rook2'].moved == false);
-        let t5 = (target.id == '7_8');
-        let t6 = (target.id == '7_1');
+        let t0 = (selectedpiece.name == 'w_king');
+        let t1 = (selectedpiece.name == 'b_king');
+        let t2 = (main.variables.pieces['w_king'].moved == false);
+        let t3 = (main.variables.pieces['b_king'].moved == false);
+        let t4 = (main.variables.pieces['b_rook2'].moved == false);
+        let t5 = (main.variables.pieces['w_rook2'].moved == false);
+        let t6 = (target.id == '7_8');
+        let t7 = (target.id == '7_1');
   
-        if (t0 && t2 && t4 &&t6){ // castle w_king
+        if (t0 && t2 && t5 && t7){ // castle w_king
   
           let k_position = '5_1';
           let k_target = '7_1';
@@ -781,7 +783,7 @@ $(document).ready(function() {
   
           main.methods.endturn();
   
-        } else if (t1 && t2 && t3 && t5){ // castle b_king
+        } else if (t1 && t3 && t4 && t6){ // castle b_king
   
           let k_position = '5_8';
           let k_target = '7_8';
